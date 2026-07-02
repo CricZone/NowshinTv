@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NOWSHIN TV ADMIN PANEL</title>
+    <title>NOWSHINTV ADMIN PANEL</title>
     
     <meta name="theme-color" content="#0f172a">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
-    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIklQVFYgQ29udHJvb CBDZW50ZXIiLAogICJzaG9ydF9uYW1lIjogIklQVFYgQWRtaW4iLAogICJzdGFydF91cmwiOiAiLiIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiI0Y4RkE5QyIsCiAgInRoZW1lX2NvbG9yIjogIiM0RjQ2RTUiLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJodHRwczovL2kucG9zdGltZy5jYy9jNGJkUzI2ei9maWxlLTAwMDAwMDAwYzEwODcyMDlhNWZkNmIwNDE3M2ViZDU5LSgyKS5wbmciLAogICAgICAic2l6ZXMiOiAiNTEyeDUxMiIsCiAgICAgICJ0eXBlIjogImltYWdlL3BuZyIsCiAgICAgICJwdXJwb3NlIjogImFueSBtYXNrYWJsZSIKICAgIH0KICBdCn0=">
+    <!-- Updated PWA Manifest with New Logo & App Name (NOWSHINTV ADMIN) -->
+    <link class="pwa-manifest" rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIk5PV1NISU5UViBBRE1JTiIsCiAgInNob3J0X25hbWUiOiAiTk9XU0hJTlRWIiwKICAic3RhcnRfdXJsIjogIi4iLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiMwZjE3MmEiLAogICJ0aGVtZV9jb2xvciI6ICIjMGYxNzJhIiwKICAiaWNvbnMiOiBbCiAgICB7CiAgICAgICJzcmMiOiAiaHR0cHM6Ly9pLnBvc3RpbWcuY2MvMTNCMmd3QkIvZmlsZS0wMDAwMDAwMDQ3NDg3MjA3OThjMmJmZWZiMTNhMDY4NS5wbmciLAogICAgICAic2l6ZXMiOiAiNTEyeDUxMiIsCiAgICAgICJ0eXBlIjogImltYWdlL3BuZyIsCiAgICAgICJwdXJwb3NlIjogImFueSBtYXNrYWJsZSIKICAgIH0KICBdCn0=">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -246,7 +247,7 @@
     </div>
 
     <script>
-        const API_URL = "https://script.google.com/macros/s/AKfycbw6LTxDqmMzRn-5JRNQtXlCZ4j0-bto7nV_y6sYTKpmIWX5XAf2JxwpBv_-Uf0butyH/exec"; 
+        const API_URL = "https://script.google.com/macros/s/AKfycbzmAW7n2kf2YbJd7zzjiqhuWfkBRo8Pu0EPPHA1GGqKsvoPNcF5379sWBHTiqRwQ4hU/exec"; 
 
         let allChannels = [];
         let currentFilter = 'all';
@@ -473,7 +474,7 @@
             btn.disabled = true; btn.innerText = "Processing Data...";
             
             const icon = document.getElementById('syncIcon');
-            if(icon) icon.classList.add('animate-spin'); // Visual indicator trigger
+            if(icon) icon.classList.add('animate-spin'); 
 
             const targetSerial = document.getElementById('chanSerial').value;
             const channelPayload = {
@@ -494,15 +495,13 @@
                 if(res.status === 'success') {
                     closeModal();
                     
-                    // Selective single channel target synchronization script logic
-                    fetch(`${API_URL}`, {
+                    // Trigger dynamic single channel verification instantly to guarantee validation
+                    await fetch(API_URL, {
                         method: 'POST',
                         body: JSON.stringify({ action: 'syncStatus', targetId: targetSerial })
-                    }).then(() => {
-                        fetchChannels(false);
                     });
 
-                    // Immediate optimistic data re-fetch framework
+                    // Fresh reload of updated configurations
                     await fetchChannels(false);
                 }
             } catch (error) { alert('Operation Failed'); }
